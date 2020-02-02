@@ -1,0 +1,31 @@
+buildscript {
+    apply from: 'versions.gradle'
+
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.google.com' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath deps.kotlin.plugin
+        classpath deps.kotlin.stdlib8
+        classpath deps.kotlin.plugin
+        classpath deps.googleServices.core
+        classpath deps.single.retrolambda
+        classpath deps.firebase.plugins
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

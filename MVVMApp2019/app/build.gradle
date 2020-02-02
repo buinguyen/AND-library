@@ -1,0 +1,123 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId "com.alan.app.mvvm"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // enable using vector drawables
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/background',
+                    'src/main/res'
+            ]
+            renderscript.srcDirs = ['src']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+kapt {
+    javacOptions {
+        // Increase the max count of errors from annotation processors.
+        // Default is 100.
+        option("-Xmaxerrs", 500)
+    }
+    correctErrorTypes = true
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // test
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.junit_ext
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.espresso_core
+
+    // support
+    implementation deps.support.annotations
+    implementation deps.support.appcompat
+    implementation deps.support.recyclerview
+    implementation deps.support.material
+    implementation deps.support.constraintlayout
+    implementation deps.ktx.core_ktx
+    implementation deps.ktx.fragment_ktx
+
+    implementation deps.kotlin.stdlib7
+
+    // lifecycle
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    annotationProcessor deps.lifecycle.compiler
+    implementation deps.lifecycle.viewmodel
+    implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.lifecycle.lifecycle_livedata_ktx
+
+    // Retrofit
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.gsonConverter
+    implementation deps.retrofit.rxAdapter
+    implementation deps.retrofit.logging
+
+    implementation deps.rx.rxjava
+    implementation deps.rx.rxandroid
+
+    implementation deps.stetho.stetho
+    implementation deps.stetho.stetho_okhttp
+
+    // Single libs
+    implementation deps.single.annotations
+    implementation deps.single.annotationJSR250
+    implementation deps.single.viewpagerdotsindicator
+    implementation deps.single.fresco
+    implementation deps.single.materialdatepicker
+
+    // dagger
+    implementation deps.dagger.core
+    implementation deps.dagger.android_support
+    kapt deps.dagger.compiler
+    kapt deps.dagger.android_processor
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.dagger.android_processor
+}
