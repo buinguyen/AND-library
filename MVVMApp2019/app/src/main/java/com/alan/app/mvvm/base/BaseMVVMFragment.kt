@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.alan.app.mvvm.base.util.injectVM
-import com.alan.app.mvvm.base.util.injectVMWithActivityScope
+import com.alan.app.mvvm.utils.injectVM
+import com.alan.app.mvvm.utils.injectVMWithActivityScope
 import com.alan.app.mvvm.base.core.AppDialog
 import com.alan.app.mvvm.base.core.HasLoadingFragment
-import com.alan.app.mvvm.base.model.LoadingStatus
+import com.alan.app.mvvm.data.model.LoadingStatus
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 

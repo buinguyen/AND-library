@@ -16,6 +16,8 @@ interface NavController {
     fun openActivity(intent: Intent?, enterAnim: Int = R.anim.slide_in_from_right,
                      exitAnim: Int = R.anim.slide_out_to_left)
 
+    fun setResult(action: Int, intent: Intent?)
+
     fun goBack()
 
     fun clearController()

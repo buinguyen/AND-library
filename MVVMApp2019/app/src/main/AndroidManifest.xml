@@ -3,7 +3,7 @@
     package="com.alan.app.mvvm">
 
     <application
-        android:name=".MVVMApp"
+        android:name=".MvvmApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.alan.app.mvvm.SplashActivity">
+        <activity android:name="com.alan.app.mvvm.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.alan.app.mvvm.OpenActivity" />
+        <activity android:name="com.alan.app.mvvm.ui.OpenActivity" />
 
     </application>
 

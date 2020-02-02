@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.alan.app.mvvm.base.HasFragmentResult
 import com.alan.app.mvvm.base.navigation.NavController.Companion.KEY_ANIM_ENTER_RES_ID
 import com.alan.app.mvvm.base.navigation.NavController.Companion.KEY_ANIM_EXIT_RES_ID
 import java.lang.ref.WeakReference
@@ -46,6 +47,24 @@ class NavControllerImpl private constructor() : NavController {
             activity.startActivity(intent, bundle)
         } catch (e: Exception) {
             Log.e("NavController", e.toString())
+        }
+    }
+
+    /**
+     * @param action: HasFragmentResult action
+     * @param intent: callback intent data
+     */
+    override fun setResult(action: Int, intent: Intent?) {
+        val targetFragment = activeFragment?.targetFragment
+        if (targetFragment != null && targetFragment is HasFragmentResult) {
+            val requestCode = activeFragment!!.targetRequestCode
+            targetFragment.onFragmentResult(requestCode, action, intent)
+            return
+        }
+        val hostActivity = activeFragment?.activity
+        if (hostActivity != null && hostActivity is HasNavTarget) {
+            val requestCode = hostActivity.getTargetCode() ?: return
+            activeFragment?.onActivityResult(requestCode, action, intent)
         }
     }
 
