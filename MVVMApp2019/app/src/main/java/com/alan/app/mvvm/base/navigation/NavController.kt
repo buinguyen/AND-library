@@ -4,8 +4,9 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.alan.app.mvvm.R
+import com.alan.app.mvvm.base.SetFragmentResultHandler
 
-interface NavController {
+interface NavController : SetFragmentResultHandler {
 
     val activeFragment: Fragment?
 
@@ -15,8 +16,6 @@ interface NavController {
 
     fun openActivity(intent: Intent?, enterAnim: Int = R.anim.slide_in_from_right,
                      exitAnim: Int = R.anim.slide_out_to_left)
-
-    fun setResult(action: Int, intent: Intent?)
 
     fun goBack()
 

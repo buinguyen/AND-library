@@ -2,12 +2,13 @@ package com.alan.app.mvvm.base.core
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import com.alan.app.mvvm.base.navigation.HasBackAction
-import com.alan.app.mvvm.base.HasFragmentResult
+import com.alan.app.mvvm.base.OnFragmentResultHandler
+import com.alan.app.mvvm.base.ResultCode
 import com.alan.app.mvvm.base.navigation.NavController
 import com.alan.app.mvvm.base.navigation.NavControllerProvider
+import com.alan.app.mvvm.base.navigation.OnBackHandler
 
-open class SyncBackFragment : Fragment(), HasBackAction, HasFragmentResult {
+open class SyncBackFragment : Fragment(), OnBackHandler, OnFragmentResultHandler {
 
     private val mNavController: NavController? by lazy {
         var navControllerProvider: NavControllerProvider? = null
@@ -19,19 +20,19 @@ open class SyncBackFragment : Fragment(), HasBackAction, HasFragmentResult {
         return@lazy navControllerProvider?.provideNavController()
     }
 
-    override fun onFragmentResult(requestCode: Int, action: Int, extraData: Intent?) {
+    override fun onFragmentResult(requestCode: Int, @ResultCode action: Int, extraData: Intent?) {
         /* Need override in subclass */
     }
 
-    fun setFragmentResult(action: Int, extraData: Intent? = null) {
-        mNavController?.setResult(action, extraData)
+    fun setFragmentResult(@ResultCode action: Int, intent: Intent?) {
+        mNavController?.setResult(action, intent)
     }
 
     /**
      * @return true: don't handle by NavController
      * @return false: handle go back by NavController
      * */
-    override fun handleBack(): Boolean = false
+    override fun onBackHandled(): Boolean = false
 
     /**
      * Use for transiting between screen

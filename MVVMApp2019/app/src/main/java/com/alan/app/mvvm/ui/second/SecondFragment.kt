@@ -4,7 +4,8 @@ import android.content.Intent
 import android.view.View
 import com.alan.app.mvvm.R
 import com.alan.app.mvvm.base.BaseMVVMFragment
-import com.alan.app.mvvm.base.HasFragmentResult
+import com.alan.app.mvvm.base.OnFragmentResultHandler
+import com.alan.app.mvvm.base.ResultCode
 import com.alan.app.mvvm.di.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_second.*
 
@@ -25,7 +26,7 @@ class SecondFragment : BaseMVVMFragment<SecondVM, ViewModelFactory>() {
             val resultIntent = Intent().apply {
                 putExtra(KEY_EXTRA_DATA, edt_result.text.toString())
             }
-            setFragmentResult(HasFragmentResult.ACTION_OK, resultIntent)
+            setFragmentResult(ResultCode.ACTION_OK, resultIntent)
             sendToNav { it.goBack() }
         }
     }

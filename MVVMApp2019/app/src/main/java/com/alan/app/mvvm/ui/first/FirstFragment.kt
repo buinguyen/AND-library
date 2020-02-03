@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.alan.app.mvvm.R
 import com.alan.app.mvvm.base.BaseMVVMFragment
-import com.alan.app.mvvm.base.HasFragmentResult
+import com.alan.app.mvvm.base.ResultCode
 import com.alan.app.mvvm.di.ViewModelFactory
 import com.alan.app.mvvm.ui.second.SecondFragment
 import kotlinx.android.synthetic.main.fragment_first.*
@@ -37,7 +37,7 @@ class FirstFragment : BaseMVVMFragment<FirstVM, ViewModelFactory>() {
     }
 
     override fun onFragmentResult(requestCode: Int, action: Int, extraData: Intent?) {
-        if (action == HasFragmentResult.ACTION_OK && requestCode == CODE_SECOND_RESULT) {
+        if (action == ResultCode.ACTION_OK && requestCode == CODE_SECOND_RESULT) {
             val result = extraData?.getStringExtra(SecondFragment.KEY_EXTRA_DATA) ?: ""
             viewModel.setResult(result)
         }

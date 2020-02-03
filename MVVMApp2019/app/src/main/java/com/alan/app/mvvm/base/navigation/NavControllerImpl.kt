@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.alan.app.mvvm.base.HasFragmentResult
+import com.alan.app.mvvm.base.OnFragmentResultHandler
 import com.alan.app.mvvm.base.navigation.NavController.Companion.KEY_ANIM_ENTER_RES_ID
 import com.alan.app.mvvm.base.navigation.NavController.Companion.KEY_ANIM_EXIT_RES_ID
 import java.lang.ref.WeakReference
@@ -51,12 +51,12 @@ class NavControllerImpl private constructor() : NavController {
     }
 
     /**
-     * @param action: HasFragmentResult action
+     * @param action: OnFragmentResultHandler action
      * @param intent: callback intent data
      */
     override fun setResult(action: Int, intent: Intent?) {
         val targetFragment = activeFragment?.targetFragment
-        if (targetFragment != null && targetFragment is HasFragmentResult) {
+        if (targetFragment != null && targetFragment is OnFragmentResultHandler) {
             val requestCode = activeFragment!!.targetRequestCode
             targetFragment.onFragmentResult(requestCode, action, intent)
             return
@@ -71,9 +71,9 @@ class NavControllerImpl private constructor() : NavController {
     override fun goBack() {
         val activity = activityWeakRef?.get() ?: return
         val fragmentMng = fragmentMngWeakRef?.get() ?: return
-        if (activeFragment is HasBackAction) {
-            val handleBackFragment = activeFragment as HasBackAction
-            if (handleBackFragment.handleBack()) return
+        if (activeFragment is OnBackHandler) {
+            val handleBackFragment = activeFragment as OnBackHandler
+            if (handleBackFragment.onBackHandled()) return
         }
         if (fragmentMng.backStackEntryCount == 0) {
             activity.finish()

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.alan.app.mvvm.base.HasFragmentResult
+import com.alan.app.mvvm.base.OnFragmentResultHandler
 import com.alan.app.mvvm.base.navigation.*
 
 class OpenActivity : AppCompatActivity(), NavControllerProvider, HasNavTarget {
@@ -57,7 +57,7 @@ class OpenActivity : AppCompatActivity(), NavControllerProvider, HasNavTarget {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val fragment = mNavController.activeFragment
-        if (fragment != null && fragment is HasFragmentResult) {
+        if (fragment != null && fragment is OnFragmentResultHandler) {
             fragment.onActivityResult(requestCode, resultCode, data)
         }
     }
