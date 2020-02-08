@@ -1,4 +1,4 @@
-package com.pcb.fintech.data
+package com.alan.app.mvvm.data
 
 /**
  * A generic class that holds a value getInstance its loading status.
@@ -16,7 +16,7 @@ data class ResponseResult<out T>(val status: Status, val data: T?, val message: 
     }
 
     fun getMessageAvoidNull(): String {
-        return message?: "Error!"
+        return message ?: "Error!"
     }
 
     companion object {

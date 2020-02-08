@@ -8,36 +8,18 @@ import androidx.fragment.app.DialogFragment
 import com.alan.app.mvvm.R
 import kotlinx.android.synthetic.main.fragment_dialog.*
 
-class AppDialog : DialogFragment {
+class AppDialog
+private constructor(var title: String? = null,
+                    var message: String? = null,
+                    var positiveText: String? = null,
+                    var negativeText: String? = null,
+                    var onPositive: (() -> Unit)? = null,
+                    var onNegative: (() -> Unit)? = null,
+                    var cancelable: Boolean? = null) : DialogFragment() {
 
-    var title: String? = null
-    var message: String? = null
-    var positiveText: String? = null
-    var negativeText: String? = null
-    var onPositive: (() -> Unit)? = null
-    var onNegative: (() -> Unit)? = null
-    var cancelable: Boolean? = null
+    private constructor() : this(null)
 
-    constructor() : this(null, null, null, null, null, null, null)
-
-    private constructor(
-        title: String?, message: String?, positiveText: String?, negativeText: String?,
-        onPositive: (() -> Unit)?, onNegative: (() -> Unit)?, cancelable: Boolean?
-    ) {
-        this.title = title
-        this.message = message
-        this.positiveText = positiveText
-        this.negativeText = negativeText
-        this.onPositive = onPositive
-        this.onNegative = onNegative
-        this.cancelable = cancelable
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.fragment_dialog, null)
     }
@@ -85,24 +67,13 @@ class AppDialog : DialogFragment {
     }
 
     companion object {
-        fun newInstance(
-            title: String?,
-            message: String?,
-            positiveText: String? = null,
-            negativeText: String? = null,
-            cancelable: Boolean? = null,
-            onPositive: (() -> Unit)? = null,
-            onNegative: (() -> Unit)? = null
-        ): AppDialog {
-            return AppDialog(
-                title,
-                message,
-                positiveText,
-                negativeText,
-                onPositive,
-                onNegative,
-                cancelable
-            )
-        }
+        fun newInstance(title: String?,
+                        message: String?,
+                        positiveText: String? = null,
+                        negativeText: String? = null,
+                        cancelable: Boolean? = null,
+                        onPositive: (() -> Unit)? = null,
+                        onNegative: (() -> Unit)? = null
+        ) = AppDialog(title, message, positiveText, negativeText, onPositive, onNegative, cancelable)
     }
 }

@@ -1,7 +1,7 @@
 package com.alan.app.mvvm.data
 
-import com.alan.app.mvvm.utils.GsonUtil
 import com.alan.app.mvvm.data.model.ApiError
+import com.alan.app.mvvm.utils.GsonUtil
 import com.google.gson.JsonSyntaxException
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -14,8 +14,8 @@ object RestApiUtil {
     fun getError(throwable: Throwable): String {
         var error: String? = null
         if (throwable is UnknownHostException
-            || throwable is ConnectException
-            || throwable is SocketTimeoutException
+                || throwable is ConnectException
+                || throwable is SocketTimeoutException
         ) { // internet connection error
             error = "Connection error!"
         } else if (throwable is JsonSyntaxException) {
@@ -24,8 +24,8 @@ object RestApiUtil {
             val errorBody = throwable.response()?.errorBody()
             if (errorBody != null) {
                 val errorMessage = parseErrorBody(
-                    errorBody,
-                    ApiError::class.java
+                        errorBody,
+                        ApiError::class.java
                 )
                 if (errorMessage?.isErrorValid() == true) {
                     error = errorMessage.error

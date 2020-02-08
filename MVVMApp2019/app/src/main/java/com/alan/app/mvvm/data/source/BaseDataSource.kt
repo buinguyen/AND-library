@@ -3,7 +3,7 @@ package com.alan.app.mvvm.data.source
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.pcb.fintech.data.ResponseResult
+import com.alan.app.mvvm.data.ResponseResult
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 
